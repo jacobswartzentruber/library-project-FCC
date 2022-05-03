@@ -38,7 +38,6 @@ module.exports = function (app) {
     })
     
     .delete(function(req, res){
-      //if successful response will be 'complete delete successful'
       Book.deleteMany({}, (err, data) => {
         if(err) return res.send('error finding books');
 
@@ -53,9 +52,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
 
       Book.findById(bookid, (err, book) => {
-        if(err) return res.send('error finding books');
-
-        if(!book) return res.send('no book exists');
+        if(err || !book) return res.send('no book exists');
 
         res.json(book);
       });
@@ -68,9 +65,7 @@ module.exports = function (app) {
       if(!comment) return res.send('missing required field comment');
 
       Book.findById(bookid, (err, book) => {
-        if(err) return res.send('error finding book');
-
-        if(!book) return res.send('no book exists');
+        if(err || !book) return res.send('no book exists');
 
         book.comments.push(comment);
 
@@ -86,9 +81,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
 
       Book.findByIdAndDelete(bookid, (err, book) => {
-        if(err) return res.send('error finding book');
-
-        if(!book) return res.send('no book exists');
+        if(err || !book) return res.send('no book exists');
 
         res.send('delete successful');
       });
