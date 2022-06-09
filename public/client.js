@@ -52,13 +52,15 @@ $( document ).ready(function() {
       dataType: 'json',
       data: $('#newCommentForm').serialize(),
       success: function(data) {
-        comments.unshift(newComment); //adds new comment to top of list
+        comments.splice(-3, 0, '<li>' +newComment+ '</li>'); //adds new comment to bottom of list
         $('#detailComments').html(comments.join(''));
       }
     });
   });
   
-  $('#newBook').click(function() {
+  $('#newBook').click(function(event) {
+    event.preventDefault();
+
     $.ajax({
       url: '/api/books',
       type: 'post',
@@ -66,6 +68,23 @@ $( document ).ready(function() {
       data: $('#newBookForm').serialize(),
       success: function(data) {
         //update list
+        itemsRaw.push(data);
+        
+        if (items.length < 15) {
+          console.log(items.length);
+          items.push('<li class="bookItem" id="' + items.length + '">' + data.title + ' - 0 comments</li>');
+        }
+        else if (items.length == 15){
+          items.push('<p>...and 1 more!</p>');
+        }
+        else {
+          let num = parseInt(items[15].match(/\d+/)[0]) + 1;
+          console.log(num);
+          console.log(items[15]);
+          items[15] = '<p>...and '+ num +' more!</p>';
+        }
+
+        $('.listWrapper').html(items.join(''));
       }
     });
   });
