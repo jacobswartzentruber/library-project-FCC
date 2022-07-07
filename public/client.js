@@ -54,6 +54,12 @@ $( document ).ready(function() {
       success: function(data) {
         comments.splice(-3, 0, '<li>' +newComment+ '</li>'); //adds new comment to bottom of list
         $('#detailComments').html(comments.join(''));
+        
+        //Update items, itemsRaw and book display with updated comment count
+        let index = itemsRaw.findIndex(book => data._id === book._id);
+        itemsRaw[index].commentcount++;
+        items[index] = '<li class="bookItem" id="' + index + '">' + data.title + ' - ' + itemsRaw[index].commentcount + ' comments</li>';
+        $('.listWrapper').html(items.join(''));
       }
     });
   });
@@ -68,7 +74,12 @@ $( document ).ready(function() {
       data: $('#newBookForm').serialize(),
       success: function(data) {
         //update list
-        itemsRaw.push(data);
+        itemsRaw.push(
+          {
+            _id: data._id,
+            title: data.title,
+            commentcount: data.comments.length
+          });
         
         if (items.length < 15) {
           console.log(items.length);
