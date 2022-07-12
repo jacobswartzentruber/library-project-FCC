@@ -1,5 +1,14 @@
+* { 
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
 .border {
   border-style: solid;
+  border-radius: 5px;
   border-width: 1px;
   margin: 10px;
 }
@@ -7,7 +16,6 @@
 #sampleui {
   max-width: 450px;
   margin-left: 5%;
-  height: 100%;
 }
 
 #sampleposting {
@@ -16,8 +24,57 @@
   margin-left: 5%;
 }
 
-#userstories {
-  margin-left: 5%;
+#newBookForm{
+  padding: 10px;
+}
+
+#bookTitleToAdd{
+  margin: 10px 0px;
+  padding: 6px;
+}
+
+#bookDetail {
+  padding: 10px;
+}
+
+#deleteAllBooks {
+  margin: 0px 10px;
+}
+
+#newCommentForm {
+  margin-top: 10px;
+}
+
+.bookItem {
+  border-radius: 5px;
+  margin: 4px 0px;
+  padding: 4px 10px;
+}
+
+.bookItem:hover {
+  background-color: #F4F1BB;
+}
+
+.bookItem:hover {
+  cursor: pointer;
+}
+
+.btn {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 6px;
+}
+
+.btn:hover {
+  background-color: #9BC1BC;
+}
+
+.btn:active {
+  background-color: #5CA4A9;
+}
+
+code {
+  background-color: whitesmoke;
 }
 
 form {

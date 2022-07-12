@@ -14,7 +14,7 @@ $( document ).ready(function() {
     }
     $('<ul/>', {
       'class': 'listWrapper',
-      html: items.join('')
+      html: items.length == 0 ? '<li>There are currently no books in library</li>' : items.join('')
       }).appendTo('#display');
   });
   
@@ -26,7 +26,7 @@ $( document ).ready(function() {
       $.each(data.comments, function(i, val) {
         comments.push('<li>' +val+ '</li>');
       });
-      comments.push('<br><form id="newCommentForm"><input style="width:300px" type="text" class="form-control" id="commentToAdd" name="comment" placeholder="New Comment">');
+      comments.push('<form id="newCommentForm"><input style="width:300px" type="text" class="form-control" id="commentToAdd" name="comment" placeholder="New Comment">');
       comments.push('<br><button type="submit" value="Submit" class="btn btn-info addComment" id="'+ data._id+'">Add Comment</button>');
       comments.push('<button class="btn btn-danger deleteBook" id="'+ data._id+'">Delete Book</button></form>');
       $('#detailComments').html(comments.join(''));
@@ -45,7 +45,7 @@ $( document ).ready(function() {
         let index = itemsRaw.findIndex(book => id === book._id);
         items.splice(index, 1);
         itemsRaw.splice(index, 1);
-        $('.listWrapper').html(items.join(''));
+        $('.listWrapper').html(items.length == 0 ? '<li>There are currently no books in library</li>' : items.join(''));
       }
     });
   });  
@@ -114,7 +114,7 @@ $( document ).ready(function() {
         items = [];
         itemsRaw = [];
         $('#detailComments').html('<p style="color: red;">'+data+'<p>');
-        $('.listWrapper').html(items.join(''));
+        $('.listWrapper').html(items.length == 0 ? '<li>There are currently no books in library</li>' : items.join(''));
       }
     });
   }); 
