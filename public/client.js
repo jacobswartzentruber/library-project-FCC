@@ -41,10 +41,19 @@ $( document ).ready(function() {
       success: function(data) {
         //update list
         $('#detailComments').html('<p style="color: red;">'+data+'<p>');
+
         let id = $('#detailTitle').text().match(/(?<=\(id: )\w*(?=\))/g)[0];
         let index = itemsRaw.findIndex(book => id === book._id);
-        items.splice(index, 1);
         itemsRaw.splice(index, 1);
+
+        //reset item list with updated itemRaw
+        items = [];
+        itemsRaw.forEach((val, i) =>{
+          if(i < 15) items.push('<li class="bookItem" id="' + i + '">' + val.title + ' - ' + val.commentcount + ' comments</li>');
+        });
+
+        if (itemsRaw.length > 15) items.push('<p>...and '+ (itemsRaw.length - 15)+' more!</p>');
+
         $('.listWrapper').html(items.length == 0 ? '<li>There are currently no books in library</li>' : items.join(''));
       }
     });
